@@ -1,5 +1,6 @@
 import React from 'react';
 import { Product } from '@/types';
+import FavoriteButton from './FavoriteButton';
 
 interface ProductCardProps {
   product: Product;
@@ -12,7 +13,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <p>{product.description}</p>
       <p>{product.email}</p>
       <p>{product.price}</p>
-      <button>Favorite</button>
+      <FavoriteButton />
     </div>
   );
 };
