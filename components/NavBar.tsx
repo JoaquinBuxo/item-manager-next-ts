@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeartIcon } from '@heroicons/react/24/outline';
+import FavoriteListButton from './FavoriteListButton';
 
 const NavBar = () => {
   return (
@@ -7,11 +7,7 @@ const NavBar = () => {
       <h1 className='text-2xl font-bold tracking-tight text-white'>
         CATALOGUE
       </h1>
-
-      <button className='text-white flex items-center'>
-        <HeartIcon className='h-8 w-8 text-white' />
-        <span className=' px-2 py-1 text-white'>0</span>
-      </button>
+      <FavoriteListButton />
     </nav>
   );
 };
