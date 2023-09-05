@@ -1,7 +1,7 @@
 import { Product } from '@/types';
 import ProductCard from './ProductCard';
 
-const fetchProducts = () => {
+const fetchProducts = async () => {
   return fetch(
     'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json'
   ).then((data) => data.json());
