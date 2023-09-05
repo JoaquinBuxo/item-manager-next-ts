@@ -1,9 +1,17 @@
+import React from 'react';
+import { HeartIcon } from '@heroicons/react/24/outline';
+
 const NavBar = () => {
   return (
-    <nav>
-      <h1>CATALOGUE</h1>
+    <nav className='bg-gray-900 p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-10'>
+      <h1 className='text-2xl font-bold tracking-tight text-white'>
+        CATALOGUE
+      </h1>
 
-      <button>Favorites</button>
+      <button className='text-white flex items-center'>
+        <HeartIcon className='h-8 w-8 text-white' />
+        <span className=' px-2 py-1 text-white'>0</span>
+      </button>
     </nav>
   );
 };
