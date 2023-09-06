@@ -4,20 +4,21 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
+import { Product } from '@/types';
 
 interface FavoriteProductsProps {
   open: boolean;
 }
 
 const FavoriteList: React.FC<FavoriteProductsProps> = ({ open }) => {
-  const { closeFavoriteProducts } = useFavoriteProducts();
+  const { favoriteProducts, toggleOpenFavoriteList } = useFavoriteProducts();
 
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as='div'
         className='relative z-10'
-        onClose={closeFavoriteProducts}
+        onClose={toggleOpenFavoriteList}
       >
         <Transition.Child
           as={Fragment}
@@ -54,7 +55,7 @@ const FavoriteList: React.FC<FavoriteProductsProps> = ({ open }) => {
                           <button
                             type='button'
                             className='relative -m-2 p-2 text-gray-400 hover:text-gray-500'
-                            onClick={closeFavoriteProducts}
+                            onClick={toggleOpenFavoriteList}
                           >
                             <span className='absolute -inset-0.5' />
                             <span className='sr-only'>Close panel</span>
@@ -68,7 +69,11 @@ const FavoriteList: React.FC<FavoriteProductsProps> = ({ open }) => {
                           <ul
                             role='list'
                             className='-my-6 divide-y divide-gray-200'
-                          ></ul>
+                          >
+                            {favoriteProducts?.map(
+                              (product: Product) => product.title
+                            )}
+                          </ul>
                         </div>
                       </div>
                     </div>

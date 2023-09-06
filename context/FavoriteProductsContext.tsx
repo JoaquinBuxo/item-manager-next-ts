@@ -1,11 +1,15 @@
 'use client';
 
-import React, { createContext, useState } from 'react';
 import FavoriteList from '@/components/FavoriteList';
+import { Product } from '@/types';
+import React, { createContext, useState } from 'react';
 
 interface FavoriteProductsContextType {
-  openFavoriteProducts: () => void;
-  closeFavoriteProducts: () => void;
+  toggleOpenFavoriteList: () => void;
+  favoriteProducts: Product[];
+  toggleFavorite: (product: Product) => void;
+  isProductFavorite: (product: Product) => boolean;
+  numFavoriteProducts: number;
 }
 
 export const FavoriteProductsContext = createContext(
@@ -18,15 +22,33 @@ export const FavoriteProductsProvider = ({
   children: React.ReactNode;
 }) => {
   const [open, setOpen] = useState(false);
+  const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
 
-  const openFavoriteProducts = () => setOpen(true);
-  const closeFavoriteProducts = () => setOpen(false);
+  const toggleOpenFavoriteList = () => setOpen(!open);
+
+  const isProductFavorite = (product: Product) =>
+    favoriteProducts.some((p: Product) => p.title === product.title);
+
+  const toggleFavorite = (product: Product) => {
+    if (isProductFavorite(product)) {
+      setFavoriteProducts(
+        favoriteProducts.filter((p: Product) => p.title !== product.title)
+      );
+    } else {
+      setFavoriteProducts([...favoriteProducts, product]);
+    }
+  };
+
+  const numFavoriteProducts = favoriteProducts.length;
 
   return (
     <FavoriteProductsContext.Provider
       value={{
-        openFavoriteProducts,
-        closeFavoriteProducts,
+        toggleOpenFavoriteList,
+        favoriteProducts,
+        toggleFavorite,
+        isProductFavorite,
+        numFavoriteProducts,
       }}
     >
       {children}

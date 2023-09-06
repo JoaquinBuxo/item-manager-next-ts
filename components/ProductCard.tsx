@@ -26,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <p className='mt-1 text-sm text-gray-500'>{product.email}</p>
           <p className='mt-1 text-sm text-gray-500'>{product.price}</p>
         </div>
-        <FavoriteButton />
+        <FavoriteButton product={product} />
       </div>
     </div>
   );
