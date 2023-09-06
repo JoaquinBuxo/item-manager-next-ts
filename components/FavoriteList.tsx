@@ -1,15 +1,24 @@
 'use client';
 
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
 
-const FavoriteList: React.FC = ({}) => {
-  const [open, setOpen] = useState(false);
+interface FavoriteProductsProps {
+  open: boolean;
+}
+
+const FavoriteList: React.FC<FavoriteProductsProps> = ({ open }) => {
+  const { closeFavoriteProducts } = useFavoriteProducts();
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-10' onClose={() => setOpen(false)}>
+      <Dialog
+        as='div'
+        className='relative z-10'
+        onClose={closeFavoriteProducts}
+      >
         <Transition.Child
           as={Fragment}
           enter='ease-in-out duration-500'
@@ -45,7 +54,7 @@ const FavoriteList: React.FC = ({}) => {
                           <button
                             type='button'
                             className='relative -m-2 p-2 text-gray-400 hover:text-gray-500'
-                            onClick={() => setOpen(false)}
+                            onClick={closeFavoriteProducts}
                           >
                             <span className='absolute -inset-0.5' />
                             <span className='sr-only'>Close panel</span>
