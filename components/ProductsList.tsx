@@ -7,10 +7,12 @@ const fetchProducts = async () => {
   ).then((data) => data.json());
 };
 
-export default async function ProductsList() {
+const ProductsList = async () => {
   const products = await fetchProducts();
 
   return products.items.map((product: Product, index: number) => (
     <ProductCard key={index} product={product} />
   ));
-}
+};
+
+export default ProductsList;
