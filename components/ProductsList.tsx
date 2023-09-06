@@ -10,8 +10,8 @@ const fetchProducts = async () => {
 const ProductsList = async () => {
   const products = await fetchProducts();
 
-  return products.items.map((product: Product, index: number) => (
-    <ProductCard key={index} product={product} />
+  return products.items.map((product: Product) => (
+    <ProductCard key={product.title} product={product} />
   ));
 };
 

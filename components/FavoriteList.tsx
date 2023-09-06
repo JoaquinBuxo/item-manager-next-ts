@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
+import FavoriteCard from './FavoriteCard';
 import { Product } from '@/types';
 
 interface FavoriteProductsProps {
@@ -70,9 +71,12 @@ const FavoriteList: React.FC<FavoriteProductsProps> = ({ open }) => {
                             role='list'
                             className='-my-6 divide-y divide-gray-200'
                           >
-                            {favoriteProducts?.map(
-                              (product: Product) => product.title
-                            )}
+                            {favoriteProducts?.map((product: Product) => (
+                              <FavoriteCard
+                                key={product.title}
+                                product={product}
+                              />
+                            ))}
                           </ul>
                         </div>
                       </div>
