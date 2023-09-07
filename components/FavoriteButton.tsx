@@ -14,7 +14,7 @@ const FavoriteButton: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <button
-      className='favorite-button text-sm font-medium text-gray-900'
+      className='absolute top-2 right-2 bg-white rounded-full p-1 favorite-button text-sm font-medium text-gray-900'
       onClick={() => toggleFavorite(product)}
     >
       {isProductFavorite(product) ? (

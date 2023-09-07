@@ -10,7 +10,8 @@ type ProductCardProps = {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className='product-card group relative'>
-      <div className='aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80'>
+      <div className='aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80 sm:h-50'>
+        <FavoriteButton product={product} />
         <Image
           width='100'
           height='100'
@@ -21,12 +22,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
       <div className='p-4 flex justify-between'>
         <div>
-          <h3 className='text-sm text-gray-700'>{product.title}</h3>
-          <p className='mt-1 text-sm text-gray-500'>{product.description}</p>
+          <h3 className='mt-1 text-gray-500'>{product.price} EUR</h3>
+          <h2 className='text-gray-700 text-ellipsis line-clamp-1'>
+            {product.title}
+          </h2>
+          <p className='mt-1 text-sm text-gray-500 line-clamp-4'>
+            {product.description}
+          </p>
           <p className='mt-1 text-sm text-gray-500'>{product.email}</p>
-          <p className='mt-1 text-sm text-gray-500'>{product.price}</p>
         </div>
-        <FavoriteButton product={product} />
       </div>
     </div>
   );
