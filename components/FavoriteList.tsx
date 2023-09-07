@@ -3,7 +3,7 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
+import { useProducts } from '@/hooks/useProducts';
 import FavoriteCard from './FavoriteCard';
 import { Product } from '@/types/products';
 
@@ -12,7 +12,7 @@ type FavoriteProductsProps = {
 };
 
 const FavoriteList: React.FC<FavoriteProductsProps> = ({ open }) => {
-  const { favoriteProducts, toggleOpenFavoriteList } = useFavoriteProducts();
+  const { favoriteProducts, toggleOpenFavoriteList } = useProducts();
 
   return (
     <Transition.Root show={open} as={Fragment}>

@@ -1,17 +1,16 @@
 'use client';
 
-import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
+import { useProducts } from '@/hooks/useProducts';
 import { HeartIcon as HeartOutlineIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartFilledIcon } from '@heroicons/react/24/solid';
 import { Product } from '@/types/products';
-import { type } from 'os';
 
 type ProductCardProps = {
   product: Product;
 };
 
 const FavoriteButton: React.FC<ProductCardProps> = ({ product }) => {
-  const { toggleFavorite, isProductFavorite } = useFavoriteProducts();
+  const { toggleFavorite, isProductFavorite } = useProducts();
 
   return (
     <button

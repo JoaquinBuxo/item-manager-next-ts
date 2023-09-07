@@ -1,18 +1,19 @@
-import { Product } from '@/types';
+'use client';
+
+import { Product } from '@/types/products';
 import ProductCard from './ProductCard';
+import { useProducts } from '@/hooks/useProducts';
 
-const fetchProducts = async () => {
-  return fetch(
-    'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json'
-  ).then((data) => data.json());
-};
+const ProductsList = () => {
+  const { paginatedProducts } = useProducts();
 
-const ProductsList = async () => {
-  const products = await fetchProducts();
-
-  return products.items.map((product: Product) => (
-    <ProductCard key={product.title} product={product} />
-  ));
+  return (
+    <>
+      {paginatedProducts?.map((product: Product) => (
+        <ProductCard key={product.title} product={product} />
+      ))}
+    </>
+  );
 };
 
 export default ProductsList;

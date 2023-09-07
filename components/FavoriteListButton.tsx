@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { HeartIcon } from '@heroicons/react/24/outline';
-import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
+import { useProducts } from '@/hooks/useProducts';
 
 const FavoriteListButton = () => {
-  const { toggleOpenFavoriteList, numFavoriteProducts } = useFavoriteProducts();
+  const { toggleOpenFavoriteList, numFavoriteProducts } = useProducts();
 
   return (
     <button

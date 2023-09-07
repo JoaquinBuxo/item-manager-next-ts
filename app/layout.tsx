@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { FavoriteProductsProvider } from '../context/FavoriteProductsContext';
+import { ProductProvider } from '../context/ProductContext';
 
 import NavBar from '@/components/NavBar';
 
@@ -20,10 +20,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <FavoriteProductsProvider>
+        <ProductProvider>
           <NavBar />
           {children}
-        </FavoriteProductsProvider>
+        </ProductProvider>
       </body>
     </html>
   );
