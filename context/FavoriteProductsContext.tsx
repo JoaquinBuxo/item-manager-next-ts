@@ -1,7 +1,7 @@
 'use client';
 
 import FavoriteList from '@/components/FavoriteList';
-import { Product } from '@/types';
+import { Product } from '@/types/products';
 import React, { createContext, useState } from 'react';
 
 interface FavoriteProductsContextType {

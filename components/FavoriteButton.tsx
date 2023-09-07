@@ -3,11 +3,12 @@
 import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
 import { HeartIcon as HeartOutlineIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartFilledIcon } from '@heroicons/react/24/solid';
-import { Product } from '@/types';
+import { Product } from '@/types/products';
+import { type } from 'os';
 
-interface ProductCardProps {
+type ProductCardProps = {
   product: Product;
-}
+};
 
 const FavoriteButton: React.FC<ProductCardProps> = ({ product }) => {
   const { toggleFavorite, isProductFavorite } = useFavoriteProducts();

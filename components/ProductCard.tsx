@@ -1,11 +1,11 @@
 import React from 'react';
 import FavoriteButton from './FavoriteButton';
 import Image from 'next/image';
-import { Product } from '@/types';
+import { Product } from '@/types/products';
 
-interface ProductCardProps {
+type ProductCardProps = {
   product: Product;
-}
+};
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (

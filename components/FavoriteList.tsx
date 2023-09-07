@@ -5,11 +5,11 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
 import FavoriteCard from './FavoriteCard';
-import { Product } from '@/types';
+import { Product } from '@/types/products';
 
-interface FavoriteProductsProps {
+type FavoriteProductsProps = {
   open: boolean;
-}
+};
 
 const FavoriteList: React.FC<FavoriteProductsProps> = ({ open }) => {
   const { favoriteProducts, toggleOpenFavoriteList } = useFavoriteProducts();
