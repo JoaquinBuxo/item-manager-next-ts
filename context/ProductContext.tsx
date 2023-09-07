@@ -4,23 +4,8 @@ import React, { createContext, useState, useEffect } from 'react';
 import FavoriteList from '@/components/FavoriteList';
 import { Product, Products } from '@/types/products';
 import fetchProducts from '@/services/fetchProducts';
-
-interface ProductContextType {
-  paginatedProducts: Products;
-  toggleOpenFavoriteList: () => void;
-  favoriteProducts: Products;
-  toggleFavorite: (product: Product) => void;
-  isProductFavorite: (product: Product) => boolean;
-  numFavoriteProducts: number;
-  pagination: PaginationInterface;
-}
-
-interface PaginationInterface {
-  numProducts: number;
-  currentPage: number;
-  productsPerPage: number;
-  onPageChange: (page: number) => void;
-}
+import { filterProducts, paginateProducts } from '@/utils/productUtils';
+import { ProductContextType } from './types';
 
 export const ProductContext = createContext({} as ProductContextType);
 
@@ -33,8 +18,11 @@ export const ProductProvider = ({
 }) => {
   const [products, setProducts] = useState<Products>([]);
   const [open, setOpen] = useState(false);
-  const [favoriteProducts, setFavoriteProducts] = useState<Products>([]);
+  const [favoriteProducts, setFavoriteProducts] = useState<Set<Product>>(
+    new Set()
+  );
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     fetchProducts().then((products) => {
@@ -46,35 +34,33 @@ export const ProductProvider = ({
     setCurrentPage(page);
   };
 
-  const numProducts = products.length;
-
-  const paginate = (
-    products: Products,
-    pageNumber: number,
-    productsPerPage: number
-  ) => {
-    const startIndex = (pageNumber - 1) * productsPerPage;
-    return products.slice(startIndex, startIndex + productsPerPage);
-  };
-
-  const paginatedProducts = paginate(products, currentPage, PRODUCTS_PER_PAGE);
-
   const toggleOpenFavoriteList = () => setOpen(!open);
 
-  const isProductFavorite = (product: Product) =>
-    favoriteProducts.some((p: Product) => p.title === product.title);
+  // Function to check if a product is in the favorites list
+  const isProductFavorite = (product: Product) => favoriteProducts.has(product);
 
+  // Function to add or remove a product from the list of favorites
   const toggleFavorite = (product: Product) => {
     if (isProductFavorite(product)) {
-      setFavoriteProducts(
-        favoriteProducts.filter((p: Product) => p.title !== product.title)
-      );
+      favoriteProducts.delete(product);
     } else {
-      setFavoriteProducts([...favoriteProducts, product]);
+      favoriteProducts.add(product);
     }
+    const updatedFavorites = new Set(favoriteProducts);
+    setFavoriteProducts(updatedFavorites);
   };
 
-  const numFavoriteProducts = favoriteProducts.length;
+  const numFavoriteProducts = favoriteProducts.size;
+
+  const filteredProducts = filterProducts(products, searchQuery);
+
+  const paginatedProducts = paginateProducts(
+    filteredProducts,
+    currentPage,
+    PRODUCTS_PER_PAGE
+  );
+
+  const numProducts = filteredProducts.length;
 
   return (
     <ProductContext.Provider
@@ -91,6 +77,7 @@ export const ProductProvider = ({
           productsPerPage: PRODUCTS_PER_PAGE,
           onPageChange,
         },
+        setSearchQuery,
       }}
     >
       {children}

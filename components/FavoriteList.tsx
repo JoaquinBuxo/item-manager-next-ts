@@ -12,7 +12,10 @@ type FavoriteProductsProps = {
 };
 
 const FavoriteList: React.FC<FavoriteProductsProps> = ({ open }) => {
-  const { favoriteProducts, toggleOpenFavoriteList } = useProducts();
+  const { favoriteProducts: favoriteProductsSet, toggleOpenFavoriteList } =
+    useProducts();
+
+  const favoriteProducts = Array.from(favoriteProductsSet);
 
   return (
     <Transition.Root show={open} as={Fragment}>
