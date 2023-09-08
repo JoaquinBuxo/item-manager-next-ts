@@ -8,6 +8,7 @@ import {
   filterProducts,
   filterProductsByTitle,
   paginateProducts,
+  sortProducts,
 } from '@/utils/productUtils';
 import { ProductContextType } from './types';
 
@@ -25,9 +26,10 @@ export const ProductProvider = ({
   const [favoriteProducts, setFavoriteProducts] = useState<Set<Product>>(
     new Set()
   );
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchFavoriteQuery, setSearchFavoriteQuery] = useState<string>('');
+  const [sortField, setSortField] = useState<keyof Product>('title');
 
   useEffect(() => {
     fetchProducts().then((products) => {
@@ -60,15 +62,18 @@ export const ProductProvider = ({
 
   const numFavoriteProducts = favoriteProducts.size;
 
-  const filteredProducts = filterProducts(products, searchQuery);
+  const filteredAndSortedProducts = sortProducts(
+    filterProducts(products, searchQuery),
+    sortField
+  );
 
   const paginatedProducts = paginateProducts(
-    filteredProducts,
+    filteredAndSortedProducts,
     currentPage,
     PRODUCTS_PER_PAGE
   );
 
-  const numProducts = filteredProducts.length;
+  const numProducts = filteredAndSortedProducts.length;
 
   const deleteFavorite = (product: Product) => {
     favoriteProducts.delete(product);
@@ -99,6 +104,8 @@ export const ProductProvider = ({
         setSearchQuery,
         deleteFavorite,
         setSearchFavoriteQuery,
+        setSortField,
+        sortField,
       }}
     >
       {children}

@@ -11,6 +11,8 @@ export interface ProductContextType {
   setSearchQuery: Function;
   deleteFavorite: Function;
   setSearchFavoriteQuery: Function;
+  setSortField: Function;
+  sortField: string;
 }
 
 export interface PaginationInterface {

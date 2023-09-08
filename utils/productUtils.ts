@@ -35,3 +35,16 @@ export const paginateProducts = (
   const startIndex = (currentPage - 1) * productsPerPage;
   return products.slice(startIndex, startIndex + productsPerPage);
 };
+
+// Function that sorts the fields according to the chosen field
+export const sortProducts = (products: Products, field: keyof Product) => {
+  return products.sort((a, b) => {
+    const valueA: any = field === 'price' ? parseFloat(a[field]) : a[field];
+    const valueB: any = field === 'price' ? parseFloat(b[field]) : b[field];
+    return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+  });
+};
+
+export const getKeysFromProduct = (product: Product) => {
+  return Object.keys(product);
+};
