@@ -62,6 +62,12 @@ export const ProductProvider = ({
 
   const numProducts = filteredProducts.length;
 
+  const deleteFavorite = (product: Product) => {
+    favoriteProducts.delete(product);
+    const updatedFavorites = new Set(favoriteProducts);
+    setFavoriteProducts(updatedFavorites);
+  };
+
   return (
     <ProductContext.Provider
       value={{
@@ -78,6 +84,7 @@ export const ProductProvider = ({
           onPageChange,
         },
         setSearchQuery,
+        deleteFavorite,
       }}
     >
       {children}

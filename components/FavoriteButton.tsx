@@ -5,11 +5,11 @@ import { HeartIcon as HeartOutlineIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartFilledIcon } from '@heroicons/react/24/solid';
 import { Product } from '@/types/products';
 
-type ProductCardProps = {
+type FavoriteButtonProps = {
   product: Product;
 };
 
-const FavoriteButton: React.FC<ProductCardProps> = ({ product }) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({ product }) => {
   const { toggleFavorite, isProductFavorite } = useProducts();
 
   return (

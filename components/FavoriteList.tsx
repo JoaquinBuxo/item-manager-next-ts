@@ -7,11 +7,11 @@ import { useProducts } from '@/hooks/useProducts';
 import FavoriteCard from './FavoriteCard';
 import { Product } from '@/types/products';
 
-type FavoriteProductsProps = {
+type FavoriteListProps = {
   open: boolean;
 };
 
-const FavoriteList: React.FC<FavoriteProductsProps> = ({ open }) => {
+const FavoriteList: React.FC<FavoriteListProps> = ({ open }) => {
   const { favoriteProducts: favoriteProductsSet, toggleOpenFavoriteList } =
     useProducts();
 

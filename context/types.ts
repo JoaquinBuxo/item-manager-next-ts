@@ -9,6 +9,7 @@ export interface ProductContextType {
   numFavoriteProducts: number;
   pagination: PaginationInterface;
   setSearchQuery: Function;
+  deleteFavorite: Function;
 }
 
 export interface PaginationInterface {
