@@ -1,10 +1,10 @@
 'use client';
 
-import { useProducts } from '@/hooks/useProducts';
+type SearchProps = {
+  setSearchQuery: Function;
+};
 
-const SearchProduct = ({}) => {
-  const { setSearchQuery } = useProducts();
-
+const SearchProduct: React.FC<SearchProps> = ({ setSearchQuery }) => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
     setSearchQuery(query);

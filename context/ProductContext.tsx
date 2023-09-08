@@ -4,7 +4,11 @@ import React, { createContext, useState, useEffect } from 'react';
 import FavoriteList from '@/components/FavoriteList';
 import { Product, Products } from '@/types/products';
 import fetchProducts from '@/services/fetchProducts';
-import { filterProducts, paginateProducts } from '@/utils/productUtils';
+import {
+  filterProducts,
+  filterProductsByTitle,
+  paginateProducts,
+} from '@/utils/productUtils';
 import { ProductContextType } from './types';
 
 export const ProductContext = createContext({} as ProductContextType);
@@ -23,6 +27,7 @@ export const ProductProvider = ({
   );
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchFavoriteQuery, setSearchFavoriteQuery] = useState<string>('');
 
   useEffect(() => {
     fetchProducts().then((products) => {
@@ -34,7 +39,10 @@ export const ProductProvider = ({
     setCurrentPage(page);
   };
 
-  const toggleOpenFavoriteList = () => setOpen(!open);
+  const toggleOpenFavoriteList = () => {
+    setOpen(!open);
+    setSearchFavoriteQuery('');
+  };
 
   // Function to check if a product is in the favorites list
   const isProductFavorite = (product: Product) => favoriteProducts.has(product);
@@ -68,12 +76,17 @@ export const ProductProvider = ({
     setFavoriteProducts(updatedFavorites);
   };
 
+  const filteredFavoriteProducts = filterProductsByTitle(
+    Array.from(favoriteProducts),
+    searchFavoriteQuery
+  );
+
   return (
     <ProductContext.Provider
       value={{
         paginatedProducts,
         toggleOpenFavoriteList,
-        favoriteProducts,
+        filteredFavoriteProducts,
         toggleFavorite,
         isProductFavorite,
         numFavoriteProducts,
@@ -85,6 +98,7 @@ export const ProductProvider = ({
         },
         setSearchQuery,
         deleteFavorite,
+        setSearchFavoriteQuery,
       }}
     >
       {children}

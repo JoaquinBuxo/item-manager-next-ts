@@ -1,4 +1,4 @@
-import { Products } from '@/types/products';
+import { Product, Products } from '@/types/products';
 
 // This function filters products based on a search query
 export const filterProducts = (products: Products, searchQuery: string) => {
@@ -11,6 +11,18 @@ export const filterProducts = (products: Products, searchQuery: string) => {
       product.description.toLowerCase().includes(query) ||
       product.price.toLowerCase().includes(query) ||
       product.email.toLowerCase().includes(query)
+  );
+};
+
+export const filterProductsByTitle = (
+  products: Products,
+  searchQuery: string
+) => {
+  const query = searchQuery.toLowerCase();
+  if (query.length === 0) return products;
+
+  return products.filter((product) =>
+    product.title.toLowerCase().includes(query)
   );
 };
 

@@ -6,16 +6,18 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useProducts } from '@/hooks/useProducts';
 import FavoriteCard from './FavoriteCard';
 import { Product } from '@/types/products';
+import Search from './Search';
 
 type FavoriteListProps = {
   open: boolean;
 };
 
 const FavoriteList: React.FC<FavoriteListProps> = ({ open }) => {
-  const { favoriteProducts: favoriteProductsSet, toggleOpenFavoriteList } =
-    useProducts();
-
-  const favoriteProducts = Array.from(favoriteProductsSet);
+  const {
+    filteredFavoriteProducts,
+    toggleOpenFavoriteList,
+    setSearchFavoriteQuery,
+  } = useProducts();
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -70,16 +72,16 @@ const FavoriteList: React.FC<FavoriteListProps> = ({ open }) => {
 
                       <div className='mt-8'>
                         <div className='flow-root'>
-                          <ul
-                            role='list'
-                            className='-my-6 divide-y divide-gray-200'
-                          >
-                            {favoriteProducts?.map((product: Product) => (
-                              <FavoriteCard
-                                key={product.title}
-                                product={product}
-                              />
-                            ))}
+                          <Search setSearchQuery={setSearchFavoriteQuery} />
+                          <ul role='list' className='divide-y divide-gray-200'>
+                            {filteredFavoriteProducts?.map(
+                              (product: Product) => (
+                                <FavoriteCard
+                                  key={product.title}
+                                  product={product}
+                                />
+                              )
+                            )}
                           </ul>
                         </div>
                       </div>
