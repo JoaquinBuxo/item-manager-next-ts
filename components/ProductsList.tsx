@@ -9,9 +9,11 @@ const ProductsList = () => {
 
   return (
     <>
-      {paginatedProducts?.map((product: Product) => (
-        <ProductCard key={product.title} product={product} />
-      ))}
+      {paginatedProducts.length > 0
+        ? paginatedProducts.map((product: Product) => (
+            <ProductCard key={product.title} product={product} />
+          ))
+        : 'No products'}
     </>
   );
 };
