@@ -5,7 +5,11 @@ import React from 'react';
 const Error = () => {
   return (
     <div className='flex min-h-screen flex-col items-center justify-between p-24'>
-      Error loading Products
+      <div className='text-center'>
+        <h1 className='mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl'>
+          Sorry, something went wrong
+        </h1>
+      </div>
     </div>
   );
 };
