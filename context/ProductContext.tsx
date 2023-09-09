@@ -76,9 +76,9 @@ export const ProductProvider = ({
   const numProducts = filteredAndSortedProducts.length;
 
   const deleteFavorite = (product: Product) => {
-    favoriteProducts.delete(product);
-    const updatedFavorites = new Set(favoriteProducts);
-    setFavoriteProducts(updatedFavorites);
+    // favoriteProducts.delete(product);
+    // const updatedFavorites = new Set(favoriteProducts);
+    // setFavoriteProducts(updatedFavorites);
   };
 
   const filteredFavoriteProducts = filterProductsByTitle(

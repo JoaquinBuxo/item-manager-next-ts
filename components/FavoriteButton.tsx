@@ -18,9 +18,15 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ product }) => {
       onClick={() => toggleFavorite(product)}
     >
       {isProductFavorite(product) ? (
-        <HeartFilledIcon className='h-7 w-7 text-gray-400' />
+        <HeartFilledIcon
+          data-testid='filled-heart-icon'
+          className='h-7 w-7 text-gray-400'
+        />
       ) : (
-        <HeartOutlineIcon className='h-7 w-7 text-gray-400' />
+        <HeartOutlineIcon
+          data-testid='outline-heart-icon'
+          className='h-7 w-7 text-gray-400'
+        />
       )}
     </button>
   );
