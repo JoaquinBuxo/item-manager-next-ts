@@ -3,7 +3,6 @@ import { render, fireEvent } from '@testing-library/react';
 import mockProducts from '@/mocks/products';
 import { useProducts } from '@/hooks/useProducts';
 import FavoriteButton from '../components/FavoriteButton';
-import { Product } from '@/types/products';
 
 jest.mock('../hooks/useProducts');
 
