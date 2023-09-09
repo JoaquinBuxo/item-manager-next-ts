@@ -2,9 +2,9 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import mockProducts from '@/mocks/products';
 import { useProducts } from '@/hooks/useProducts';
-import FavoriteButton from '../components/FavoriteButton';
+import FavoriteButton from '../FavoriteButton';
 
-jest.mock('../hooks/useProducts');
+jest.mock('../../hooks/useProducts');
 
 describe('FavoriteButton', () => {
   const mockToggleFavorite = jest.fn();

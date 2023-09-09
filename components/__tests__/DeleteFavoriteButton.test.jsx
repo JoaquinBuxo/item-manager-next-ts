@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import mockProducts from '@/mocks/products';
-import { useProducts } from '../hooks/useProducts';
-import DeleteFavoriteButton from '../components/DeleteFavoriteButton';
+import { useProducts } from '@/hooks/useProducts';
+import DeleteFavoriteButton from '../DeleteFavoriteButton';
 
-jest.mock('../hooks/useProducts');
+jest.mock('../../hooks/useProducts');
 
 describe('DeleteFavoriteButton', () => {
   const mockDeleteFavorite = jest.fn();

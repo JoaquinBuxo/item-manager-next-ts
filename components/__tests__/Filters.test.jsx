@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Filters from '../components/Filters';
-import { useProducts } from '../hooks/useProducts';
+import Filters from '../Filters';
+import { useProducts } from '@/hooks/useProducts';
 
-jest.mock('../hooks/useProducts');
+jest.mock('../../hooks/useProducts');
 
 describe('Filters', () => {
   const mockSetSearchQuery = jest.fn();

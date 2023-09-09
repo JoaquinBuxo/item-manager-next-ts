@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import FavoriteList from '../components/FavoriteList';
+import FavoriteList from '../FavoriteList';
 import { useProducts } from '@/hooks/useProducts';
 import mockProducts from '@/mocks/products';
 
-jest.mock('../hooks/useProducts');
+jest.mock('../../hooks/useProducts');
 
 describe('FavoriteList', () => {
   const mockToggleOpenFavoriteList = jest.fn();

@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { useProducts } from '../hooks/useProducts';
-import ProductsList from '../components/ProductsList';
-import mockProducts from '../mocks/products';
+import { useProducts } from '@/hooks/useProducts';
+import ProductsList from '../ProductsList';
+import mockProducts from '@/mocks/products';
 
-jest.mock('../hooks/useProducts');
+jest.mock('../../hooks/useProducts');
 
 describe('ProductsList', () => {
   beforeEach(() => {

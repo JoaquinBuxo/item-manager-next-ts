@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { useProducts } from '../hooks/useProducts';
-import Pagination from '../components/Pagination';
+import { useProducts } from '@/hooks/useProducts';
+import Pagination from '../Pagination';
 
-jest.mock('../hooks/useProducts');
+jest.mock('../../hooks/useProducts');
 
 describe('Pagination', () => {
   const mockOnPageChange = jest.fn();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import mockProducts from '@/mocks/products';
-import FavoriteCard from '../components/FavoriteCard';
+import FavoriteCard from '../FavoriteCard';
 
 describe('FavoriteCard', () => {
   const mockProduct = mockProducts.items[0];
