@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useProducts } from '@/hooks/useProducts';
@@ -7,9 +7,12 @@ const SortProducts = () => {
   const { sortField, setSortField } = useProducts();
   const productKeys = ['title', 'description', 'price', 'email'];
 
-  const handleSelectChange = (field: string) => {
-    setSortField(field);
-  };
+  const handleSelectChange = useCallback(
+    (field: string) => {
+      setSortField(field);
+    },
+    [setSortField]
+  );
 
   return (
     <Listbox value={sortField} onChange={handleSelectChange}>

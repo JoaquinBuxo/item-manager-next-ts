@@ -1,14 +1,18 @@
 'use client';
+import React, { useCallback } from 'react';
 
 type SearchProps = {
   setSearchQuery: Function;
 };
 
 const SearchProduct: React.FC<SearchProps> = ({ setSearchQuery }) => {
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-  };
+  const handleSearch = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const query = event.target.value;
+      setSearchQuery(query);
+    },
+    [setSearchQuery]
+  );
 
   return (
     <>

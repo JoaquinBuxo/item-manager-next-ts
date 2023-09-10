@@ -1,6 +1,11 @@
 'use client';
-
-import React, { createContext, useState, useEffect } from 'react';
+import React, {
+  createContext,
+  useReducer,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react';
 import FavoriteList from '@/components/FavoriteList';
 import { Product, Products } from '@/types/products';
 import fetchProducts from '@/services/fetchProducts';
@@ -10,106 +15,146 @@ import {
   paginateProducts,
   sortProducts,
 } from '@/utils/productUtils';
-import { ProductContextType } from './types';
+import { Action, ProductContextType, State } from './types';
 
 export const ProductContext = createContext({} as ProductContextType);
 
 const PRODUCTS_PER_PAGE = 5;
+
+// Define initial states
+const initialState: State = {
+  products: [],
+  favoriteProducts: new Set(),
+  currentPage: 1,
+  searchQuery: '',
+  searchFavoriteQuery: '',
+  sortField: 'title',
+  open: false,
+};
+
+const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case 'SET_PRODUCTS':
+      return { ...state, products: action.payload };
+    case 'TOGGLE_FAVORITE':
+      const updatedFavorites = new Set(state.favoriteProducts);
+      if (action.delete || updatedFavorites.has(action.payload)) {
+        updatedFavorites.delete(action.payload);
+      } else {
+        updatedFavorites.add(action.payload);
+      }
+      return { ...state, favoriteProducts: updatedFavorites };
+    case 'SET_PAGE':
+      return { ...state, currentPage: action.payload };
+    case 'SET_QUERY':
+      return { ...state, [action.target]: action.payload };
+    case 'SET_SORT_FIELD':
+      return { ...state, sortField: action.payload };
+    case 'TOGGLE_OPEN':
+      return { ...state, open: !state.open };
+    default:
+      return state;
+  }
+};
 
 export const ProductProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [products, setProducts] = useState<Products>([]);
-  const [open, setOpen] = useState(false);
-  const [favoriteProducts, setFavoriteProducts] = useState<Set<Product>>(
-    new Set()
-  );
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [searchFavoriteQuery, setSearchFavoriteQuery] = useState<string>('');
-  const [sortField, setSortField] = useState<keyof Product>('title');
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     fetchProducts().then((products) => {
-      setProducts(products.items);
+      dispatch({ type: 'SET_PRODUCTS', payload: products.items });
     });
   }, []);
 
-  const onPageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  const toggleOpenFavoriteList = () => {
-    setOpen(!open);
-    setSearchFavoriteQuery('');
-  };
-
-  // Function to check if a product is in the favorites list
-  const isProductFavorite = (product: Product) => favoriteProducts.has(product);
-
-  // Function to add or remove a product from the list of favorites
-  const toggleFavorite = (product: Product) => {
-    if (isProductFavorite(product)) {
-      favoriteProducts.delete(product);
-    } else {
-      favoriteProducts.add(product);
-    }
-    const updatedFavorites = new Set(favoriteProducts);
-    setFavoriteProducts(updatedFavorites);
-  };
-
-  const numFavoriteProducts = favoriteProducts.size;
-
-  const filteredAndSortedProducts = sortProducts(
-    filterProducts(products, searchQuery),
-    sortField
-  );
+  const filteredAndSortedProducts = useMemo(() => {
+    return sortProducts(
+      filterProducts(state.products, state.searchQuery),
+      state.sortField
+    );
+  }, [state.products, state.searchQuery, state.sortField]);
 
   const paginatedProducts = paginateProducts(
     filteredAndSortedProducts,
-    currentPage,
+    state.currentPage,
     PRODUCTS_PER_PAGE
   );
 
   const numProducts = filteredAndSortedProducts.length;
 
-  const deleteFavorite = (product: Product) => {
-    // favoriteProducts.delete(product);
-    // const updatedFavorites = new Set(favoriteProducts);
-    // setFavoriteProducts(updatedFavorites);
-  };
+  const filteredFavoriteProducts = useMemo(() => {
+    return filterProductsByTitle(
+      Array.from(state.favoriteProducts),
+      state.searchFavoriteQuery
+    );
+  }, [state.favoriteProducts, state.searchFavoriteQuery]);
 
-  const filteredFavoriteProducts = filterProductsByTitle(
-    Array.from(favoriteProducts),
-    searchFavoriteQuery
+  const toggleOpenFavoriteList = useCallback(() => {
+    dispatch({ type: 'TOGGLE_OPEN' });
+  }, []);
+
+  const toggleFavorite = useCallback((product: Product) => {
+    dispatch({ type: 'TOGGLE_FAVORITE', payload: product });
+  }, []);
+
+  const isProductFavorite = useCallback(
+    (product: Product) => {
+      return state.favoriteProducts.has(product);
+    },
+    [state.favoriteProducts]
   );
+
+  const setSearchQuery = useCallback((query: string) => {
+    dispatch({ type: 'SET_QUERY', target: 'searchQuery', payload: query });
+  }, []);
+
+  const setSearchFavoriteQuery = useCallback((query: string) => {
+    dispatch({
+      type: 'SET_QUERY',
+      target: 'searchFavoriteQuery',
+      payload: query,
+    });
+  }, []);
+
+  const setSortField = useCallback((field: keyof Product) => {
+    dispatch({ type: 'SET_SORT_FIELD', payload: field });
+  }, []);
+
+  const deleteFavorite = useCallback((product: Product) => {
+    dispatch({ type: 'TOGGLE_FAVORITE', delete: true, payload: product });
+  }, []);
+
+  const onPageChange = useCallback((page: number) => {
+    dispatch({ type: 'SET_PAGE', payload: page });
+  }, []);
 
   return (
     <ProductContext.Provider
       value={{
         paginatedProducts,
         toggleOpenFavoriteList,
-        filteredFavoriteProducts,
         toggleFavorite,
         isProductFavorite,
-        numFavoriteProducts,
+        numFavoriteProducts: state.favoriteProducts.size,
         pagination: {
           numProducts,
-          currentPage,
+          currentPage: state.currentPage,
           productsPerPage: PRODUCTS_PER_PAGE,
           onPageChange,
         },
         setSearchQuery,
-        deleteFavorite,
         setSearchFavoriteQuery,
         setSortField,
-        sortField,
+        sortField: state.sortField,
+        deleteFavorite,
+        filteredFavoriteProducts,
       }}
     >
       {children}
-      <FavoriteList open={open} />
+      <FavoriteList open={state.open} />
     </ProductContext.Provider>
   );
 };

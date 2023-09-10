@@ -1,18 +1,40 @@
 import { Product, Products } from '@/types/products';
 
+export interface State {
+  products: Products;
+  favoriteProducts: Set<Product>;
+  currentPage: number;
+  searchQuery: string;
+  searchFavoriteQuery: string;
+  sortField: keyof Product;
+  open: boolean;
+}
+
+export type Action =
+  | { type: 'SET_PRODUCTS'; payload: Products }
+  | { type: 'TOGGLE_FAVORITE'; payload: Product; delete?: boolean }
+  | { type: 'SET_PAGE'; payload: number }
+  | {
+      type: 'SET_QUERY';
+      target: 'searchQuery' | 'searchFavoriteQuery';
+      payload: string;
+    }
+  | { type: 'SET_SORT_FIELD'; payload: keyof Product }
+  | { type: 'TOGGLE_OPEN' };
+
 export interface ProductContextType {
   paginatedProducts: Products;
-  toggleOpenFavoriteList: () => void;
+  sortField: keyof Product;
   filteredFavoriteProducts: Products;
-  toggleFavorite: (product: Product) => void;
-  isProductFavorite: (product: Product) => boolean;
   numFavoriteProducts: number;
   pagination: PaginationInterface;
-  setSearchQuery: Function;
-  deleteFavorite: Function;
-  setSearchFavoriteQuery: Function;
-  setSortField: Function;
-  sortField: string;
+  toggleOpenFavoriteList: () => void;
+  toggleFavorite: (product: Product) => void;
+  isProductFavorite: (product: Product) => boolean;
+  setSearchQuery: (query: string) => void;
+  setSearchFavoriteQuery: (query: string) => void;
+  setSortField: (field: keyof Product) => void;
+  deleteFavorite: (product: Product) => void;
 }
 
 export interface PaginationInterface {
