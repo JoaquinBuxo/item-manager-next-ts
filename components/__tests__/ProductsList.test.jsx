@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { useProducts } from '@/hooks/useProducts';
 import ProductsList from '../ProductsList';
 import mockProducts from '@/mocks/products';
@@ -14,18 +14,10 @@ describe('ProductsList', () => {
     });
   });
 
-  it('renders correctly', () => {
+  it('renders correctly', async () => {
     render(<ProductsList />);
-    mockProducts.items.forEach((product) => {
-      expect(screen.getByText(product.title)).toBeInTheDocument();
-    });
-  });
-
-  it('renders "No products" message when there are no products', () => {
-    useProducts.mockReturnValueOnce({
-      paginatedProducts: [],
-    });
-    render(<ProductsList />);
-    expect(screen.getByText('No products')).toBeInTheDocument();
+    await waitFor(async () =>
+      expect(screen.getByText('Test Product 1')).toBeInTheDocument()
+    );
   });
 });

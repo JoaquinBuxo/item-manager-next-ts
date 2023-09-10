@@ -18,6 +18,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           src={product.image}
           alt={product.title}
           className='h-full w-full object-cover object-center lg:h-full lg:w-full'
+          loading='lazy'
         />
       </div>
       <div className='p-4 flex justify-between'>
