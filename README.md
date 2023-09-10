@@ -8,6 +8,8 @@
 
 ## Overview
 
+You can see here the preview: https://item-manager-next-ts.vercel.app/
+
 In the image, we can see the expected result of the app when it is correctly installed. The image showcases the user interface of the app, displaying various components and interactions.
 
 ## Getting Started
