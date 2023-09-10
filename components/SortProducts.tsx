@@ -2,13 +2,14 @@ import React, { useCallback } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useProducts } from '@/hooks/useProducts';
+import { Product } from '@/types/products';
 
 const SortProducts = () => {
   const { sortField, setSortField } = useProducts();
   const productKeys = ['title', 'description', 'price', 'email'];
 
   const handleSelectChange = useCallback(
-    (field: string) => {
+    (field: keyof Product) => {
       setSortField(field);
     },
     [setSortField]
