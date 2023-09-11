@@ -3,7 +3,7 @@
 import React from 'react';
 import { Product } from '@/types/products';
 import { useProducts } from '@/hooks/useProducts';
-import Skeleton from './SkeletonProductCard';
+import Skeleton from '../status/Skeleton';
 
 const ProductCard = React.lazy(() => import('./ProductCard'));
 

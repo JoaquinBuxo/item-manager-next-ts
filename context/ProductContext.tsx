@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
-import FavoriteList from '@/components/FavoriteList';
+import FavoriteList from '@/components/Favorites/FavoriteList';
 import { Product, Products } from '@/types/products';
 import fetchProducts from '@/services/fetchProducts';
 import {

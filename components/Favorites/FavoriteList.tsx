@@ -6,7 +6,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useProducts } from '@/hooks/useProducts';
 import FavoriteCard from './FavoriteCard';
 import { Product } from '@/types/products';
-import Search from './Search';
+import Search from '../Filters/Search';
 
 type FavoriteListProps = {
   open: boolean;

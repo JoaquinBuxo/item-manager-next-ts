@@ -1,5 +1,5 @@
 import React from 'react';
-import FavoriteListButton from './FavoriteListButton';
+import FavoriteListButton from './Favorites/FavoriteListButton';
 
 const NavBar = () => {
   return (

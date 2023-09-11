@@ -1,5 +1,5 @@
 import React from 'react';
-import FavoriteButton from './FavoriteButton';
+import FavoriteButton from '../Favorites/FavoriteButton';
 import Image from 'next/image';
 import { Product } from '@/types/products';
 

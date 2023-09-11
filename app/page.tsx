@@ -1,8 +1,10 @@
 import React from 'react';
 import Filters from '@/components/Filters';
 import Pagination from '@/components/Pagination';
-import ProductsList from '@/components/ProductsList';
-import Skeleton from '@/components/Skeleton';
+import ProductsList from '@/components/Products/ProductsList';
+import Skeleton from '@/components/status/Skeleton';
+import ErrorFallback from '@/components/status/ErrorFallback';
+import { ErrorBoundary } from 'react-error-boundary';
 
 export default function Home() {
   return (
@@ -10,7 +12,9 @@ export default function Home() {
       <Filters />
       <section className='product-list mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-'>
         <React.Suspense fallback={<Skeleton />}>
-          <ProductsList />
+          <ErrorBoundary fallback={<ErrorFallback />}>
+            <ProductsList />
+          </ErrorBoundary>
         </React.Suspense>
       </section>
       <Pagination />

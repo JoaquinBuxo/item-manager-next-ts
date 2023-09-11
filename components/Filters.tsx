@@ -2,8 +2,8 @@
 
 import { useProducts } from '@/hooks/useProducts';
 import React from 'react';
-import Search from './Search';
-import SortProducts from './SortProducts';
+import Search from './Filters/Search';
+import SortProducts from './Filters/SortProducts';
 
 const Filters = () => {
   const { setSearchQuery } = useProducts();
