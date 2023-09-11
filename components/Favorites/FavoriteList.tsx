@@ -73,7 +73,10 @@ const FavoriteList: React.FC<FavoriteListProps> = ({ open }) => {
                       <div className='mt-8'>
                         <div className='flow-root'>
                           <Search setSearchQuery={setSearchFavoriteQuery} />
-                          <ul role='list' className='divide-y divide-gray-200'>
+                          <ul
+                            role='list'
+                            className='favorites-list divide-y divide-gray-200'
+                          >
                             {filteredFavoriteProducts.length > 0
                               ? filteredFavoriteProducts.map(
                                   (product: Product) => (

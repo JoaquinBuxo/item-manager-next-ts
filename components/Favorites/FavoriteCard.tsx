@@ -9,7 +9,7 @@ type FavoriteCardProps = {
 
 const FavoriteCard: React.FC<FavoriteCardProps> = ({ product }) => {
   return (
-    <li key={product.title} className='flex py-6'>
+    <li key={product.title} className='favorite-product-card flex py-6'>
       <div className='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
         <Image
           width='100'

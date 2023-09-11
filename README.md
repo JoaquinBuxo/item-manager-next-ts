@@ -40,10 +40,18 @@ In the image, we can see the expected result of the app when it is correctly ins
    npm run dev
    ```
 
-4. Run the tests:
+4. Run unit tests:
 
    ```sh
    npm run test
    ```
+
+5. Run e2e tests:
+
+- First you will need to run the app (step 3) and then:
+
+  ```sh
+  npm run cypress:run
+  ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

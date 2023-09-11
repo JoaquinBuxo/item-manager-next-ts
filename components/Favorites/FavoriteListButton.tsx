@@ -13,7 +13,9 @@ const FavoriteListButton = () => {
       onClick={toggleOpenFavoriteList}
     >
       <HeartIcon className='h-8 w-8 text-white' />
-      <span className=' px-2 py-1 text-white'>{numFavoriteProducts}</span>
+      <span className='favorite-list-button px-2 py-1 text-white'>
+        {numFavoriteProducts}
+      </span>
     </button>
   );
 };

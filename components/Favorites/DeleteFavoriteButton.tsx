@@ -15,7 +15,7 @@ const DeleteFavoriteButton: React.FC<DeleteFavoriteButtonProps> = ({
 
   return (
     <button
-      className=' top-2 right-2 bg-white rounded-full p-1 favorite-button text-sm font-medium text-gray-900'
+      className='favorite-delete-button top-2 right-2 bg-white rounded-full p-1 favorite-button text-sm font-medium text-gray-900'
       onClick={() => deleteFavorite(product)}
     >
       <TrashIcon className='h-7 w-7 text-gray-400' />
