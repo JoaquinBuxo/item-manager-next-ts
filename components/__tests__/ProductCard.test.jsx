@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useProducts } from '@/hooks/useProducts';
-import ProductCard from '../ProductCard';
+import ProductCard from '../Products/ProductCard';
 import mockProducts from '@/mocks/products';
 
 jest.mock('../../hooks/useProducts');

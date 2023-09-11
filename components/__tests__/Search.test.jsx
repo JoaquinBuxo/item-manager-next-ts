@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Search from '../Search';
+import Search from '../Filters/Search';
 
 describe('Search', () => {
   it('calls setSearchQuery with input value on change', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import FavoriteList from '../FavoriteList';
+import FavoriteList from '../Favorites/FavoriteList';
 import { useProducts } from '@/hooks/useProducts';
 import mockProducts from '@/mocks/products';
 

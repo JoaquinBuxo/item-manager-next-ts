@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import FavoriteListButton from '../FavoriteListButton';
+import FavoriteListButton from '../Favorites/FavoriteListButton';
 import { useProducts } from '@/hooks/useProducts';
 
 jest.mock('../../hooks/useProducts');

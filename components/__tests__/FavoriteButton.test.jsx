@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import mockProducts from '@/mocks/products';
 import { useProducts } from '@/hooks/useProducts';
-import FavoriteButton from '../FavoriteButton';
+import FavoriteButton from '../Favorites/FavoriteButton';
 
 jest.mock('../../hooks/useProducts');
 
